@@ -1,8 +1,42 @@
 <?php
+////////////////////////////////////////////////////////////////////////////////////////////////
+// PDF_Label 
+//
+// Class to print labels in Avery or custom formats
+//
+// Copyright (C) 2003 Laurent PASSEBECQ (LPA)
+// Based on code by Steve Dillon
+//
+//---------------------------------------------------------------------------------------------
+// VERSIONS:
+// 1.0: Initial release
+// 1.1: + Added unit in the constructor
+//      + Now Positions start at (1,1).. then the first label at top-left of a page is (1,1)
+//      + Added in the description of a label:
+//           font-size : defaut char size (can be changed by calling Set_Char_Size(xx);
+//           paper-size: Size of the paper for this sheet (thanx to Al Canton)
+//           metric    : type of unit used in this description
+//                       You can define your label properties in inches by setting metric to
+//                       'in' and print in millimiters by setting unit to 'mm' in constructor
+//        Added some formats:
+//           5160, 5161, 5162, 5163, 5164: thanks to Al Canton
+//           8600                        : thanks to Kunal Walia
+//      + Added 3mm to the position of labels to avoid errors 
+// 1.2: = Bug of positioning
+//      = Set_Font_Size modified -> Now, just modify the size of the font
+// 1.3: + Labels are now printed horizontally
+//      = 'in' as document unit didn't work
+// 1.4: + Page scaling is disabled in printing options
+// 1.5: + Added 3422 format
+// 1.6: + FPDF 1.8 compatibility
+////////////////////////////////////////////////////////////////////////////////////////////////
+
 /**
- * Copyright {YEAR}.  Info-Pro Lender Services.  All rights reserved.
- */
-require_once ('fpdf.php');
+ * PDF_Label - PDF label editing
+ * @package PDF_Label
+ * @author Laurent PASSEBECQ
+ * @copyright 2003 Laurent PASSEBECQ
+**/
 
 class PDF_Label extends FPDF {
 
@@ -49,8 +83,8 @@ class PDF_Label extends FPDF {
         $this->_Metric_Doc = $unit;
         $this->_Set_Format($Tformat);
         $this->SetFont('Arial');
-        $this->SetMargins(0,0);
-        $this->SetAutoPageBreak(false);
+        $this->SetMargins(0,0); 
+        $this->SetAutoPageBreak(false); 
         $this->_COUNTX = $posX-2;
         $this->_COUNTY = $posY-1;
     }
